@@ -15,33 +15,18 @@ public class MainActivity extends Activity {
     }
 
     private void launchScreenOffMemo() {
-        // Try Screen Off Memo directly first
+        // Try new note composer directly
         try {
             Intent intent = new Intent();
             intent.setComponent(new ComponentName(
                 "com.samsung.android.app.notes",
-                "com.samsung.android.app.notes.screenOffMemo.ScreenOffMemoActivity"
+                "com.samsung.android.app.notes.nativecomposer.NativeComposerActionNewActivity"
             ));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
             return;
         } catch (Exception e1) {
-            // fallthrough
-        }
-
-        // Try alternative Samsung Notes Screen Off Memo path
-        try {
-            Intent intent = new Intent();
-            intent.setComponent(new ComponentName(
-                "com.samsung.android.app.notes",
-                "com.samsung.android.app.notes.ui.lockscreen.ScreenOffMemoActivity"
-            ));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-            return;
-        } catch (Exception e2) {
             // fallthrough
         }
 
@@ -56,7 +41,7 @@ public class MainActivity extends Activity {
             } else {
                 Toast.makeText(this, "Samsung Notes not found", Toast.LENGTH_SHORT).show();
             }
-        } catch (Exception e3) {
+        } catch (Exception e2) {
             Toast.makeText(this, "Could not open Samsung Notes", Toast.LENGTH_SHORT).show();
         }
 
