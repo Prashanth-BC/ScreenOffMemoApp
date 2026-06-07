@@ -15,13 +15,17 @@ public class MainActivity extends Activity {
     }
 
     private void launchScreenOffMemo() {
-        // Use ACTION_SEND with text/plain — triggers NativeComposerActionNewActivity (exported)
+        // Try explicit component — works on Samsung One UI even for non-exported activities
         try {
-            Intent intent = new Intent(Intent.ACTION_SEND);
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName(
+                "com.samsung.android.app.notes",
+                "com.samsung.android.app.notes.nativecomposer.NativeComposerActionNewActivity"
+            ));
+            intent.setAction(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.setPackage("com.samsung.android.app.notes");
             intent.putExtra(Intent.EXTRA_TEXT, "");
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
             return;
